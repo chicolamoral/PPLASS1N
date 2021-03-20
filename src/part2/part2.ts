@@ -37,7 +37,7 @@ export const runLengthEncoding = (x: string): string => {
 
 /* Question 3 */
 export const isPaired = (x:string): boolean =>{ 
-    const pairs: any = {
+    const pairs: {[opener: string] : string} = {
         '{': '}',
         '[': ']',
         '(': ')'

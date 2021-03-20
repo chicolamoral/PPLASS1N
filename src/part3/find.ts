@@ -1,4 +1,5 @@
 import { Result, makeFailure, makeOk, bind, either } from "../lib/result";
+import * as R from "ramda";
 
 /* Library code */
 const findOrThrow = <T>(pred: (x: T) => boolean, a: T[]): T => {
@@ -8,13 +9,11 @@ const findOrThrow = <T>(pred: (x: T) => boolean, a: T[]): T => {
     throw "No element found.";
 }
 
-export const findResult = undefined;
 export const findResult = <T>(pred: (x: T) => boolean, a: T[]): Result<T> => {
-    for (let i = 0; i < a.length; i++) {
-        if (pred(a[i])) return makeOk(a[i]);
-    }
-    return makeFailure("No element found.");
-};
+    const item: T | undefined = R.find(pred)(a)
+    return item ? makeOk(item) : makeFailure("No element found.")
+}
+
 
 /* Client code */
 const returnSquaredIfFoundEven_v1 = (a: number[]): number => {
@@ -26,7 +25,6 @@ const returnSquaredIfFoundEven_v1 = (a: number[]): number => {
     }
 }
 
-export const returnSquaredIfFoundEven_v2 = undefined;
 export const returnSquaredIfFoundEven_v2 = (a: number[]): Result<number> => bind(findResult((x:number) => x % 2 === 0, a), (y:number)=>makeOk((y*y)));
+export const returnSquaredIfFoundEven_v3 = (a: number[]): number => either(findResult((x:number) => x % 2 === 0, a), (y: number)=>((y*y)), (z: string)=>(-1));
 
-export const returnSquaredIfFoundEven_v3 = undefined;export const returnSquaredIfFoundEven_v3 = (a: number[]): number => either(findResult((x:number) => x % 2 === 0, a), (y: number)=>((y*y)), (z: string)=>(-1));
