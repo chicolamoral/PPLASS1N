@@ -12,6 +12,15 @@ describe("Assignment 1 Part 2", () => {
         it("compresses a string", () => {
             expect(runLengthEncoding("aaaabbbccd")).to.equal("a4b3c2d");
         });
+
+
+        it("compresses a string", () => {
+            expect(runLengthEncoding("aaaabccdd")).to.equal("a4bc2d2");
+        });
+
+        it("compresses a string", () => {
+            expect(runLengthEncoding("")).to.equal("");
+        });
     });
 
     describe("isPaired", () => {
