@@ -11,7 +11,6 @@ export const enqueue = (x: number): State<any, undefined> => {
 
 export const dequeue = (s:Queue): [Queue,number] => [s.slice(1) ,s[0]];
 
-
 export const queueManip: State<Queue, number> = 
     bind(
         dequeue, x => bind(
